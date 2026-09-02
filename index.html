@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://geocoding-api.open-meteo.com https://api.open-meteo.com; img-src 'self' data:; script-src 'self'" />
+  <title>Cute Pixel Weather Widget</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== CLOSED STATE ===== -->
+  <div id="closedScreen" class="closed-screen hidden">
+    <div class="closed-inner">
+      <div class="closed-label">WIDGET CLOSED</div>
+      <button id="reopenBtn" class="reopen-btn">REOPEN ♡</button>
+    </div>
+  </div>
+
+  <!-- ===== MAIN WIDGET ===== -->
+  <div id="app" class="app-outer">
+    <div class="widget-frame" id="widgetFrame">
+
+      <!-- Title bar (drag handle) -->
+      <div class="title-bar" id="titleBar">
+        <div class="dots">
+          <div class="dot" style="background:#ff9eb5"></div>
+          <div class="dot" style="background:#ffd6a5"></div>
+          <div class="dot" style="background:#b5f0a5"></div>
+        </div>
+        <span class="title-label">✦ WEATHER ✦</span>
+        <div class="title-buttons">
+          <button id="minimizeBtn" class="title-btn min-btn" title="Minimize">−</button>
+          <button id="closeBtn" class="title-btn close-btn" title="Close">×</button>
+        </div>
+      </div>
+
+      <!-- Minimized notice -->
+      <div id="minimizedNotice" class="minimized-notice hidden">♡ click − to restore ♡</div>
+
+      <!-- Main content -->
+      <div id="mainContent" class="main-content">
+
+        <!-- Location + search trigger -->
+        <button id="locationBtn" class="location-row" title="Click to change city">
+          <span id="locationLabel">◆ LOADING… ◆</span>
+          <span class="search-icon">🔍</span>
+        </button>
+
+        <!-- Search panel (hidden by default) -->
+        <div id="searchPanel" class="search-panel hidden">
+          <input id="searchInput" class="search-input" type="text"
+                 placeholder="TYPE ANY CITY…" autocomplete="off" spellcheck="false" />
+          <div id="searchResults" class="search-results"></div>
+
+          <div class="famous-header">◆ 50 FAMOUS CITIES ◆</div>
+          <div id="famousList" class="famous-list"></div>
+        </div>
+
+        <!-- Error banner -->
+        <div id="errorBanner" class="error-banner hidden"></div>
+
+        <!-- Big temp + icon -->
+        <div class="hero-row">
+          <div id="heroIcon" class="hero-icon">☀️</div>
+          <div>
+            <div id="heroTemp" class="hero-temp">--°</div>
+            <div class="hero-meta">
+              <span id="heroCondition">LOADING</span><br />
+              <span id="heroFeels" class="feels-like">FEELS --°</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stat row -->
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-label">HUMID</div>
+            <div id="statHumidity" class="stat-value">--%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">WIND</div>
+            <div id="statWind" class="stat-value">--</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">UV</div>
+            <div id="statUv" class="stat-value">--</div>
+          </div>
+        </div>
+
+        <!-- Tab switcher -->
+        <div class="tab-row">
+          <button id="tabWeek" class="tab-btn active" data-tab="week">7-DAY</button>
+          <button id="tabHourly" class="tab-btn" data-tab="hourly">HOURLY</button>
+          <button id="unitToggle" class="unit-btn">°C</button>
+        </div>
+
+        <!-- Forecast rows -->
+        <div id="forecastList" class="forecast-list"></div>
+
+        <!-- Footer -->
+        <div id="footer" class="footer">♡ loading… ♡</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="cities.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
